@@ -19,25 +19,27 @@ def generate_password(length=16, nums=1, special_chars=1, uppercase=1, lowercase
     # Combine all characters
     all_characters = letters + digits + symbols
 
-    while True:
-        password = ''
-        # Generate password
-        for _ in range(length):
-            password += secrets.choice(all_characters)
-        
-        constraints = [
-            (nums, r'\d'),
-            (special_chars, fr'[{symbols}]'),
-            (uppercase, r'[A-Z]'),
-            (lowercase, r'[a-z]')
-        ]
+    password = ''
+    # Generate password
+    for _ in range(length):
+        password += secrets.choice(all_characters)
+    
+    constraints = [
+        (nums, r'\d'),
+        (special_chars, fr'[{symbols}]'),
+        (uppercase, r'[A-Z]'),
+        (lowercase, r'[a-z]')
+    ]
 
-        # Check constraints        
-        if all(
-            constraint <= len(re.findall(pattern, password))
-            for constraint, pattern in constraints
-        ):
-            break
+    # Check constraints        
+    if all(
+        constraint <= len(re.findall(pattern, password))
+        for constraint, pattern in constraints
+    ):
+        pass
+    else:
+        generate_password()
+
     
     # insert password 
     password_entry.insert(0, password)
@@ -122,7 +124,7 @@ email_label = Label(text="Email/Username:")
 email_label.grid(row=2, column=0)
 
 email_entry = Entry(width=38)
-email_entry.insert(0, "douglazenby@gmail.com")
+email_entry.insert(0, "name@email.com")
 email_entry.grid(row=2, column=1, columnspan=2)
 
 password_label = Label(text="Password:")
